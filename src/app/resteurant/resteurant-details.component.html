@@ -1,0 +1,20 @@
+
+
+<label>Proszę wybrać resteurację</label>
+
+<br/>
+ <select  [(ngModel)]="selectedOrgMod"  >
+    <option  *ngFor="let rest of resteurant | async" style="width: 300px;" [ngValue]="rest"  >
+        {{rest.name}}
+      </option>
+    </select>
+
+<br/>
+<label>Proszę wybrać stolik</label>
+<br/>
+        <canvas #canvas></canvas>
+
+
+
+
+

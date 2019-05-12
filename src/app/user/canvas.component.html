@@ -1,0 +1,67 @@
+
+<h2>Formularz tworzenia resteuracji</h2>
+
+
+
+<form name="form" (ngSubmit)=" f.form.valid && onSubmit()" #f="ngForm" novalidate>
+    <div class="form-group">
+  <label for="resteurantname">Podaj nazwe resteuracji: </label>
+  <input type="text" class="form-control" pattern="^[A-Za-z]{1,25}$" name="resteurantname" [(ngModel)]="form.resteurantname" #resteurantname="ngModel" required/>
+  <div *ngIf="f.submitted && resteurantname.invalid">
+      <div *ngIf="resteurantname.errors?.required">Nazwa jest wymagana</div>
+      <div *ngIf="resteurantname.errors?.pattern">Nazwa powinna zawierac tylko litery,bez spacji do 25 znakow</div>
+    </div>
+</div>
+
+    <div class="form-group">
+
+  <label>Nazwa ulicy</label>
+  <input type="text" class="form-control" pattern="^[A-Za-z]{1,25}$" name="streetNumber" [(ngModel)]="form.streetNumber" #streetNumber="ngModel" required/>
+  <div *ngIf="f.submitted && streetNumber.invalid">
+      <div *ngIf="streetNumber.errors.required">Nazwa ulicy jest wymagana</div>
+      <div *ngIf="streetNumber.errors?.pattern">Nazwa powinna zawierac tylko litery,bez spacji do 25 znakow</div>
+    </div>
+  <label>Nr domu</label>
+  <input type="text" class="form-control" pattern="^[0-9-/]{1,4}$" name="houseNumber" [(ngModel)]="form.houseNumber" #houseNumber="ngModel" required />
+  <div *ngIf="f.submitted && houseNumber.invalid">
+      <div *ngIf="houseNumber.errors.required">Numer domu jest wymagany</div>
+      <div *ngIf="houseNumber.errors?.pattern">Numer powinienien skladać sie tylko z cyfer oraz "/", maksymalnie(4)</div>
+    </div>
+  <label>Kod pocztowy</label>
+  <input type="text" class="form-control" pattern="[0-9]{2}\-[0-9]{3}"   name="code"  [(ngModel)]="form.code" #code="ngModel" required  />
+  <div *ngIf="f.submitted && code.invalid">
+      <div *ngIf="code.errors.required">code is required</div>
+      <div *ngIf="code.errors?.pattern">Poprawny format to: xx-xxx</div>
+    </div>
+  <label>Nazwa Miasta</label>
+  <input type="text" class="form-control" name="cityName" pattern="^[A-Za-z]{1,25}$"  [(ngModel)]="form.cityName" #cityName="ngModel" required  />
+  <div *ngIf="f.submitted && cityName.invalid">
+      <div *ngIf="cityName.errors.required">cityName is required</div>
+
+    </div>
+ </div>
+ <div class="form-group">
+ <label>Załaduj tło resteuracji</label>
+
+  <input type='file' (change)="onSelectFile($event)" name="image"  [(ngModel)]="form.image" #image="ngModel" required >
+  <div *ngIf="f.submitted && image.invalid">
+      <div *ngIf="image.errors.required">image is required</div>
+    </div>
+  </div>
+ <br/>
+ <div (click)="add()" class="btn btn-primary">Dodaj stolik</div>
+ <br/>
+  <canvas #canvas></canvas>
+
+<br/>
+  <button>Zapisz resteuracje</button>
+  <div *ngIf="f.submitted && isSignUpFailed" class="alert alert-warning">
+    Nie udało sie zapisać resteuracji: <br/>{{errorMessage}}
+  </div>
+</form>
+
+
+<button routerLink="/admin">Anuluj tworzenie resteuracji</button>
+
+
+

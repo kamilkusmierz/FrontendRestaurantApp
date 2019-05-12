@@ -1,0 +1,9 @@
+<h2>Posiłki</h2>
+<div class="col-md-12  ">
+<div *ngFor="let food of foods | async" class="col-md-4  card " >
+  <app-fooddetal [food]='food' class="card-body" ></app-fooddetal>
+</div>
+</div>
+<div>
+  <button type="button" class="button btn-danger" (click)='deleteFoods()'>Usun wszystkie</button>
+</div>

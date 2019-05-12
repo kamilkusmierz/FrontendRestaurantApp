@@ -1,0 +1,12 @@
+<div *ngIf="food" >
+  <div>
+    <label>Nazwa Posiłku: </label> {{food.foodName}}
+  </div>
+  <div>
+    <label>Cena: </label> {{food.price}}
+  </div>
+
+  <span class="button is-small btn btn-danger" (click)='deleteFood()'>Delete</span>
+
+  <hr/>
+</div>

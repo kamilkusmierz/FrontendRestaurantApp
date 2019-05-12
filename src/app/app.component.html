@@ -1,0 +1,26 @@
+<nav class="navbar navbar-inverse ">
+  <div class="container-fluid ">
+    <div class="navbar-header">
+      <div class="navbar-brand " >Resteuracja</div>
+    </div>
+    <ul class="nav navbar-nav " routerLinkActive="active">
+      <li class="nav-item"><a class="nav-link" routerLink="home">Konto</a></li>
+
+      <li *ngIf="authority === 'admin'" class="nav-item">
+        <a class="nav-link" routerLink="admin">Panel Admina</a>
+      </li>
+      <li *ngIf="authority === 'pm'" class="nav-item">
+        <a class="nav-link" routerLink="pm">Panel Pracownika</a>
+      </li>
+      <li *ngIf="!authority" class="nav-item">
+        <a class="nav-link" routerLink="auth/login">Login</a>
+      </li>
+      <li *ngIf="authority" class="nav-item ">
+        <a class="nav-link" routerLink="resteurants">Zarezerwuj Stolik</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

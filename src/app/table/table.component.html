@@ -1,0 +1,76 @@
+<ng-container *ngIf="!subbmit; else elseTemplate">
+
+<h2>Formularz rezerwacji {{stolik}}</h2>
+<form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+  <div class="form-group">
+    <label for="name">Imię</label>
+    <input type="text" class="form-control" name="firstname" pattern="^[A-Z]{1}[a-ząęłńśćźżó-]{1,25}$" [(ngModel)]="form.firstname" #firstname="ngModel" required />
+    <div *ngIf="f.submitted && firstname.invalid">
+      <div *ngIf="firstname.errors.required">Imie jest wymagane</div>
+      <div *ngIf="firstname.errors.pattern">Imie powinno sie zaczynac z duzej litery</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="lastname">Nazwiko</label>
+    <input type="text" class="form-control" pattern="^[A-Z]{1}[a-ząęłńśćźżó-]{1,25}$" name="lastname" [(ngModel)]="form.lastname" #lastname="ngModel" required />
+    <div *ngIf="f.submitted && lastname.invalid">
+      <div *ngIf="lastname.errors.required">Nazwisko jest wymagane</div>
+      <div *ngIf="lastname.errors.pattern">Imie powinno sie zaczynac z duzej litery</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="long">Na ile godzin chcesz zarezerwować </label>
+    <input name="long" class="form-control" type="number" min=1 value=1 (change)="endDate($event.target.value)" required />
+  </div>
+  <div class="form-group">
+    <label for="data">Podaj datę rezerwacji: </label>
+    <input class="form-control" type="datetime-local" (change)="isBussy($event.target.value)" required />
+    <div *ngIf="bussy" class="alert alert-warning">
+      Stolik zajęty wybierz inną datę <br />
+    </div>
+    <div *ngIf="wrongdata" class="alert alert-warning">
+        Wybierz datę z przyszlosci <br />
+      </div>
+  </div>
+
+  <div>
+    <div class="dania col-md-6">
+      <ul>
+        <h1 class="text-center">Menu</h1>
+        <li *ngFor="let f of food | async ; index as i" class="list-unstyled">
+          <div>
+            <div class="col-md-4">{{f.foodName}}</div>
+            <div class="col-md-4">Cena za szt: {{f.price}} zł</div>
+
+            <div class="col-md-4">
+              <div class="btn btn-success float-right" (click)="add(f)">Dodaj</div>
+            </div>
+
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="zamowienia col-md-6">
+      <div *ngIf="zamowione.length != 0">
+        <h2 class="text-center"> Zamowiono</h2>
+
+        <li *ngFor="let danie of zamowione ;  index as i" class="list-group-item">
+            <div class="btn btn-success float-right" (click)="deletefood(i)">Usun</div>
+          <span class="badge badge-info"> {{ danie.price | currency:"zł"}} </span> {{danie.foodName}}
+
+        </li>
+      </div>
+    </div>
+
+  </div>
+
+  <button class="float-left btn btn-primary">Wyslij zamowienie</button>
+
+</form>
+
+
+</ng-container>
+<ng-template #elseTemplate>
+<h2>Zamowienie przyjęte</h2>
+</ng-template>
+
